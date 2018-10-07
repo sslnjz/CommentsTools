@@ -1,0 +1,33 @@
+<RCC>
+    <qresource prefix="/">
+        <file>resources/About_s16_01.png</file>
+        <file>resources/Add_s15_01.png</file>
+        <file>resources/Add_s16_01.png</file>
+        <file>resources/Add_s16_02.png</file>
+        <file>resources/Add_s16_03.png</file>
+        <file>resources/Del_s15_01.png</file>
+        <file>resources/Del_s16_01.png</file>
+        <file>resources/Del_s16_02.png</file>
+        <file>resources/Del_s16_03.png</file>
+        <file>resources/Ext_s15_01.png</file>
+        <file>resources/Ext_s16_01.png</file>
+        <file>resources/Ext_s16_02.png</file>
+        <file>resources/Ext_s16_03.png</file>
+        <file>resources/Filter_s16_01.png</file>
+        <file>resources/Fullscreen_s16_01.png</file>
+        <file>resources/Ref_s15_01.png</file>
+        <file>resources/Ref_s16_01.png</file>
+        <file>resources/Ref_s16_02.png</file>
+        <file>resources/Ref_s16_03.png</file>
+        <file>resources/Report_s16_01.png</file>
+        <file>resources/sn_s16_01.png</file>
+        <file>resources/Start_s16_01.png</file>
+        <file>resources/Start_s22_01.png</file>
+        <file>resources/Start_s24_01.png</file>
+        <file>resources/Start_s24_02.png</file>
+        <file>resources/Start_s24_03.png</file>
+        <file>resources/Stop_s15_01.png</file>
+        <file>resources/Stop_s16_01.png</file>
+        <file>resources/Stop_s16_02.png</file>
+    </qresource>
+</RCC>
