@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>1624</width>
+    <height>1223</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,15 +19,15 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
-     <height>22</height>
+     <width>1624</width>
+     <height>36</height>
     </rect>
    </property>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <widget class="QDockWidget" name="dockWidget">
    <property name="windowTitle">
-    <string>Settings</string>
+    <string>Comments Settings</string>
    </property>
    <attribute name="dockWidgetArea">
     <number>1</number>
@@ -59,16 +59,19 @@
        </property>
        <layout class="QGridLayout" name="gridLayout">
         <property name="leftMargin">
-         <number>0</number>
+         <number>3</number>
         </property>
         <property name="topMargin">
-         <number>0</number>
+         <number>3</number>
         </property>
         <property name="rightMargin">
-         <number>0</number>
+         <number>3</number>
         </property>
         <property name="bottomMargin">
-         <number>0</number>
+         <number>3</number>
+        </property>
+        <property name="spacing">
+         <number>2</number>
         </property>
         <item row="0" column="0">
          <layout class="QVBoxLayout" name="verticalLayout">
@@ -85,45 +88,30 @@
               <property name="enabled">
                <bool>true</bool>
               </property>
-              <property name="maximumSize">
-               <size>
-                <width>20</width>
-                <height>20</height>
-               </size>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">QToolButton{ 
-	background: transparent;
-	image: url(://resources/Add_s16_01.png);
-}
-
-QToolButton:hover{ 
-	background: transparent;
-	image: url(://resources/Add_s16_02.png);
-}
-
-QToolButton:pressed{ 
-	background: transparent;
-	image: url(://resources/Add_s15_01.png);
-}
-
-QToolButton:disabled{ 
-	background: transparent;
-	image: url(://resources/Add_s16_03.png);
-}</string>
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
               </property>
               <property name="text">
                <string>...</string>
               </property>
               <property name="icon">
                <iconset resource="resources.qrc">
-                <normaloff>:/resources/Add_s16_01.png</normaloff>:/resources/Add_s16_01.png</iconset>
+                <normaloff>:/resources/1201206.png</normaloff>:/resources/1201206.png</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>32</width>
+                <height>32</height>
+               </size>
               </property>
               <property name="checkable">
                <bool>false</bool>
               </property>
               <property name="autoRepeat">
-               <bool>true</bool>
+               <bool>false</bool>
               </property>
               <property name="autoExclusive">
                <bool>false</bool>
@@ -138,31 +126,21 @@ QToolButton:disabled{
               <property name="enabled">
                <bool>true</bool>
               </property>
-              <property name="maximumSize">
-               <size>
-                <width>20</width>
-                <height>20</height>
-               </size>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">QToolButton{
-	background: transparent; 
-	image: url(://resources/Del_s16_01.png);
-}
-
-QToolButton:pressed{
-	background: transparent; 
-	image: url(://resources/Del_s15_01.png);
-}
-
-
-QToolButton:disabled{
-	background: transparent; 
-	image: url(://resources/Del_s16_03.png);
-}</string>
-              </property>
               <property name="text">
                <string/>
+              </property>
+              <property name="icon">
+               <iconset resource="resources.qrc">
+                <normaloff>:/resources/1201052.png</normaloff>:/resources/1201052.png</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>32</width>
+                <height>32</height>
+               </size>
+              </property>
+              <property name="autoRaise">
+               <bool>true</bool>
               </property>
              </widget>
             </item>
@@ -202,40 +180,34 @@ QToolButton:disabled{
        </property>
        <layout class="QGridLayout" name="gridLayout_2">
         <property name="leftMargin">
-         <number>0</number>
+         <number>3</number>
         </property>
         <property name="topMargin">
-         <number>0</number>
+         <number>3</number>
         </property>
         <property name="rightMargin">
-         <number>0</number>
+         <number>3</number>
         </property>
         <property name="bottomMargin">
-         <number>0</number>
+         <number>3</number>
         </property>
         <property name="spacing">
          <number>2</number>
         </property>
         <item row="2" column="0">
          <widget class="QToolButton" name="toolButton_6">
-          <property name="styleSheet">
-           <string notr="true">QToolButton{	
-	background: transparent;
-	image: url(://resources/Start_s24_01.png);
-}
-
-QToolButton:pressed{	
-	background: transparent;
-	image: url(://resources/Start_s16_01.png);
-}
-</string>
-          </property>
           <property name="text">
            <string/>
           </property>
           <property name="icon">
            <iconset resource="resources.qrc">
-            <normaloff>:/resources/Start_s24_01.png</normaloff>:/resources/Start_s24_01.png</iconset>
+            <normaloff>:/resources/1201334.png</normaloff>:/resources/1201334.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>32</width>
+            <height>32</height>
+           </size>
           </property>
           <property name="autoRaise">
            <bool>true</bool>
@@ -246,6 +218,19 @@ QToolButton:pressed{
          <widget class="QToolButton" name="toolButton_5">
           <property name="text">
            <string/>
+          </property>
+          <property name="icon">
+           <iconset resource="resources.qrc">
+            <normaloff>:/resources/1201091.png</normaloff>:/resources/1201091.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>32</width>
+            <height>32</height>
+           </size>
+          </property>
+          <property name="autoRaise">
+           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -276,11 +261,11 @@ QToolButton:pressed{
           </item>
           <item>
            <widget class="QToolButton" name="toolButton_3">
-            <property name="maximumSize">
-             <size>
-              <width>20</width>
-              <height>20</height>
-             </size>
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
             </property>
             <property name="toolTip">
              <string>Filters</string>
@@ -307,6 +292,16 @@ QToolButton:disabled{
             <property name="text">
              <string/>
             </property>
+            <property name="icon">
+             <iconset resource="resources.qrc">
+              <normaloff>:/resources/1201092.png</normaloff>:/resources/1201092.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>32</width>
+              <height>32</height>
+             </size>
+            </property>
            </widget>
           </item>
          </layout>
@@ -318,24 +313,27 @@ QToolButton:disabled{
    </widget>
   </widget>
   <widget class="QDockWidget" name="dockWidget_2">
+   <property name="windowTitle">
+    <string>Extension Filters</string>
+   </property>
    <attribute name="dockWidgetArea">
     <number>1</number>
    </attribute>
    <widget class="QWidget" name="dockWidgetContents_2">
     <layout class="QGridLayout" name="gridLayout_4">
      <property name="leftMargin">
-      <number>2</number>
+      <number>3</number>
      </property>
      <property name="topMargin">
-      <number>2</number>
+      <number>3</number>
      </property>
      <property name="rightMargin">
-      <number>2</number>
+      <number>3</number>
      </property>
      <property name="bottomMargin">
-      <number>2</number>
+      <number>3</number>
      </property>
-     <property name="verticalSpacing">
+     <property name="spacing">
       <number>2</number>
      </property>
      <item row="0" column="0">
@@ -352,33 +350,24 @@ QToolButton:disabled{
        </item>
        <item>
         <widget class="QToolButton" name="toolButton_4">
-         <property name="maximumSize">
-          <size>
-           <width>20</width>
-           <height>20</height>
-          </size>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">QToolButton{
-	background: transparent; 
-}
-
-QToolButton:pressed{
-	background: transparent; 
-	image: url(://resources/Ref_s15_01.png);
-}
-
-QToolButton:disabled{
-	background: transparent; 
-	image: url(://resources/Ref_s16_03.png);
-}</string>
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
          </property>
          <property name="text">
           <string/>
          </property>
          <property name="icon">
           <iconset resource="resources.qrc">
-           <normaloff>:/resources/Ref_s16_01.png</normaloff>:/resources/Ref_s16_01.png</iconset>
+           <normaloff>:/resources/1201216.png</normaloff>:/resources/1201216.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
          </property>
          <property name="autoRaise">
           <bool>true</bool>
