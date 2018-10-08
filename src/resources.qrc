@@ -1,10 +1,15 @@
 <RCC>
-  <qresource prefix="/">
-    <file>resources/1201091.png</file>
-    <file>resources/1201052.png</file>
-    <file>resources/1201092.png</file>
-    <file>resources/1201206.png</file>
-    <file>resources/1201216.png</file>
-    <file>resources/1201334.png</file>
-  </qresource>
+    <qresource prefix="/">
+        <file>resources/1201091.png</file>
+        <file>resources/1201052.png</file>
+        <file>resources/1201092.png</file>
+        <file>resources/1201206.png</file>
+        <file>resources/1201216.png</file>
+        <file>resources/1201334.png</file>
+        <file>resources/557950.png</file>
+        <file>resources/55770.png</file>
+        <file>resources/557760.png</file>
+        <file>resources/558097.png</file>
+        <file>resources/558058.png</file>
+    </qresource>
 </RCC>
