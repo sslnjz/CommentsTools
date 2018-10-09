@@ -11,6 +11,8 @@ MainWindow::MainWindow(QWidget *parent) :
     setupUi(this);
 
 	connect(tbtnAdd, &QToolButton::clicked, this, &MainWindow::addFilterPath);
+    connect(listWidget, &QListWidget::currentRowChanged, [&](int row){ tbtnDelete->setEnabled(row >= 0); });
+    connect(tbtnDelete, &QToolButton::clicked, [&](){ removeFromSourceList(listWidget->currentRow()); });
 
 #ifdef Q_OS_MACOS
 
@@ -54,7 +56,24 @@ void MainWindow::addFilterPath()
 		QMessageBox::warning(this, tr("Warning"), tr("Please select a directory"));
 	}
 	else
-	{	
-		listWidget->addItem(new QListWidgetItem(path));
+    {
+        addItem2SourceList(path);
 	}
+}
+
+void MainWindow::addItem2SourceList(const QString& s)
+{
+    if(listWidget->findItems(s, Qt::MatchCaseSensitive).count() == 0){
+        QListWidgetItem* item = new QListWidgetItem(s);
+        item->setIcon(QIcon("://resources/1201081.png"));
+        item->setSelected(true);
+        item->setToolTip(s);
+        listWidget->setIconSize(QSize(16, 16));
+        listWidget->addItem(item);
+    }
+}
+
+void MainWindow::removeFromSourceList(int index)
+{
+    delete listWidget->takeItem(index);
 }

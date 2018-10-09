@@ -56,3 +56,6 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
+macx: ICON = comments.icns
+win32: RC_ICONS = comments.ico
+

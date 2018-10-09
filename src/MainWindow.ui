@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1624</width>
-    <height>1223</height>
+    <width>982</width>
+    <height>990</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,10 +19,18 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1624</width>
+     <width>982</width>
      <height>22</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionAppend_Path"/>
+    <addaction name="actionDelete"/>
+   </widget>
+   <addaction name="menuFile"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <widget class="QDockWidget" name="dockWidget">
@@ -121,7 +129,7 @@
             <item>
              <widget class="QToolButton" name="tbtnDelete">
               <property name="enabled">
-               <bool>true</bool>
+               <bool>false</bool>
               </property>
               <property name="toolTip">
                <string>Delete Directory</string>
@@ -388,6 +396,16 @@ QToolButton:disabled{
     </layout>
    </widget>
   </widget>
+  <action name="actionAppend_Path">
+   <property name="text">
+    <string>Append Directory</string>
+   </property>
+  </action>
+  <action name="actionDelete">
+   <property name="text">
+    <string>Delete </string>
+   </property>
+  </action>
  </widget>
  <resources>
   <include location="resources.qrc"/>
