@@ -6,6 +6,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     setupUi(this);
 
+    //setWindowFlags( windowFlags() & ~Qt::WindowMaximizeButtonHint );
 #ifdef Q_OS_MACOS
 
     QSize size = QSize(16, 16);
@@ -28,7 +29,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     setStyleSheet(
                 "QDockWidget {titlebar-close-icon: url(://resources/557950.png);titlebar-normal-icon: url(://resources/558058.png);}"
-                "QDockWidget::title { background: lightgray; padding: 2px; text-align: center;}"
+                "QDockWidget::title { background: lightgray; padding: 2px; text-align: center; padding-right: 50px;}"
                 "QDockWidget::close-button, QDockWidget::float-button {border: none;icon-size: 12px;}"
     );
 
