@@ -16,6 +16,9 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private Q_SLOTS:
+	void addFilterPath();
+
 private:
 };
 
