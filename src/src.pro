@@ -40,13 +40,16 @@ CONFIG(debug, debug|release){
 
 SOURCES     += \
             main.cpp \
-    MainWindow.cpp
+    SMainWindow.cpp \
+    STypeDialog.cpp
 
 HEADERS     += \
-    MainWindow.h
+    SMainWindow.h \
+    STypeDialog.h
 
 FORMS       += \
-    MainWindow.ui
+    MainWindow.ui \
+    STypeDialog.ui
 
 RESOURCES += \
     resources.qrc
