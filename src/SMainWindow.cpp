@@ -1,18 +1,51 @@
-#include "MainWindow.h"
+#include "SMainWindow.h"
 #include "ui_MainWindow.h"
+#include "STypeDialog.h"
 
 #include <QDir>
 #include <QFileDialog>
 #include <QMessageBox>
 
-MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent)
+class SMainWindowPrivate
 {
+public:
+	SMainWindowPrivate(SMainWindow* q) : q_ptr(q)
+	{
+
+	}
+
+public:
+	QStringList _types;
+	int _enableTimer;
+
+private:
+	SMainWindow * const q_ptr;
+	Q_DECLARE_PUBLIC(SMainWindow)
+};
+
+SMainWindow::SMainWindow(QWidget *parent) :
+    QMainWindow(parent)
+	, d_ptr(new SMainWindowPrivate(this))
+{
+	Q_D(SMainWindow);
+
     setupUi(this);
 
-	connect(tbtnAdd, &QToolButton::clicked, this, &MainWindow::addFilterPath);
+	d->_enableTimer = startTimer(100);
+	connect(tbtnAdd, &QToolButton::clicked, this, &SMainWindow::addFilterPath);
     connect(listWidget, &QListWidget::currentRowChanged, [&](int row){ tbtnDelete->setEnabled(row >= 0); });
     connect(tbtnDelete, &QToolButton::clicked, [&](){ removeFromSourceList(listWidget->currentRow()); });
+	connect(tbtnFilter, &QToolButton::clicked, [&]() {
+		Q_D(SMainWindow);
+
+		STypeDialog dlg(this);
+		if (dlg.exec() == QDialog::Accepted)
+		{
+			d->_types.append(dlg.types());
+		}
+
+		comboBox->addItem(d->_types.join(";"));
+	});
 
 #ifdef Q_OS_MACOS
 
@@ -43,12 +76,12 @@ MainWindow::MainWindow(QWidget *parent) :
 #endif
 }
 
-MainWindow::~MainWindow()
+SMainWindow::~SMainWindow()
 {
 
 }
 
-void MainWindow::addFilterPath()
+void SMainWindow::addFilterPath()
 {
 	QString path = QFileDialog::getExistingDirectory(this, tr("Select Directory"), QDir::homePath(), QFileDialog::ReadOnly);
 	if (path.isEmpty())
@@ -61,7 +94,7 @@ void MainWindow::addFilterPath()
 	}
 }
 
-void MainWindow::addItem2SourceList(const QString& s)
+void SMainWindow::addItem2SourceList(const QString& s)
 {
     if(listWidget->findItems(s, Qt::MatchCaseSensitive).count() == 0){
         QListWidgetItem* item = new QListWidgetItem(s);
@@ -73,7 +106,36 @@ void MainWindow::addItem2SourceList(const QString& s)
     }
 }
 
-void MainWindow::removeFromSourceList(int index)
+void SMainWindow::removeFromSourceList(int index)
 {
     delete listWidget->takeItem(index);
+}
+
+void SMainWindow::timerEvent(QTimerEvent *event)
+{
+	Q_D(SMainWindow);
+
+	if (event->timerId() == d->_enableTimer)
+	{
+		if (listWidget->count() > 0)
+		{
+			tbtnFilter->setEnabled(true);
+			comboBox->setEnabled(true);
+		}
+		else
+		{
+			tbtnDelete->setEnabled(false);
+			tbtnFilter->setEnabled(false);
+			comboBox->setEnabled(false);
+		}
+
+		if (comboBox->count() > 0)
+		{
+			tbtnStart->setEnabled(true);
+		}
+		else
+		{
+			tbtnStart->setEnabled(false);
+		}
+	}
 }
