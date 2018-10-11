@@ -1,5 +1,7 @@
 #include "STypeDialog.h"
 
+#include <QtDebug>
+
 STypeDialog::STypeDialog(QWidget *parent)
 	: QDialog(parent)
 {
@@ -16,6 +18,7 @@ STypeDialog::STypeDialog(QWidget *parent)
 
 STypeDialog::~STypeDialog()
 {
+    qDebug() << "~STypeDialog()";
 }
 
 QStringList STypeDialog::types() const
@@ -25,7 +28,7 @@ QStringList STypeDialog::types() const
 	{
 		QListWidgetItem* item = listWidget->item(i);
 		if (item->checkState() & Qt::Checked)
-			ts.append(item->text().split("-").first().trimmed());
+            ts.append(item->text().split("-").first().trimmed());
 	}
 
 	return ts;
