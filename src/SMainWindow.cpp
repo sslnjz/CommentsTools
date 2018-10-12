@@ -1,12 +1,14 @@
 #include "SMainWindow.h"
 #include "ui_MainWindow.h"
 #include "STypeDialog.h"
+#include "SEntryListThread.h"
 
 #include <QDir>
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QFileInfoList>
 #include <QDebug>
+#include <QThread>
 
 class SMainWindowPrivate
 {
@@ -17,7 +19,7 @@ public:
 	}
 
 public:
-	QStringList _types;
+    QStringList _currentFiles;
     int _enableTimer = -1;
     bool _generateStop = false;
 
@@ -34,30 +36,19 @@ SMainWindow::SMainWindow(QWidget *parent) :
 
     setupUi(this);
 
-	d->_enableTimer = startTimer(100);
+    d->_enableTimer = startTimer(100);
 	connect(tbtnAdd, &QToolButton::clicked, this, &SMainWindow::addFilterPath);
     connect(listWidgetDirs, &QListWidget::currentRowChanged, [&](int row){ tbtnDelete->setEnabled(row >= 0); });
     connect(tbtnDelete, &QToolButton::clicked, [&](){ removeFromSourceList(listWidgetDirs->currentRow()); });
-
-    connect(tbtnStart, &QToolButton::clicked, [&](){
-
-        listWidgetFiles->clear();
-
-        tbtnStop->setEnabled(true);
-        tbtnStart->setEnabled(false);
-
-        generateExtensionList(generateFileList());
-
-        tbtnStop->setEnabled(false);
-        tbtnStart->setEnabled(true);
-    });
+    connect(tbtnStart, &QToolButton::clicked, this, &SMainWindow::generateFilesList);
 
     connect(tbtnFilter, &QToolButton::clicked, [&]() {
 		Q_D(SMainWindow);
 		STypeDialog dlg(this);
         if (dlg.exec() == QDialog::Accepted){
-			d->_types.append(dlg.types());
-            comboBox->addItem(d->_types.join(";"));
+            QStringList f = dlg.types();
+            if(!f.isEmpty())
+                comboBox->addItem(f.join(";"));
         }
 	});
 
@@ -106,7 +97,16 @@ void SMainWindow::addFilterPath()
 
 void SMainWindow::addItem2SourceList(const QString& s)
 {
-    if(listWidgetDirs->findItems(s, Qt::MatchCaseSensitive).count() == 0){
+    bool duplicated = false;
+    for(int i = 0; i < listWidgetDirs->count(); i++)
+    {
+        if(s.startsWith(listWidgetDirs->item(i)->text()))
+        {
+            duplicated = true;
+        }
+    }
+
+    if(!duplicated){
         QListWidgetItem* item = new QListWidgetItem(s);
         item->setIcon(QIcon("://resources/1201081.png"));
         item->setSelected(true);
@@ -114,6 +114,10 @@ void SMainWindow::addItem2SourceList(const QString& s)
 
         listWidgetDirs->setIconSize(QSize(16, 16));
         listWidgetDirs->addItem(item);
+    }
+    else
+    {
+        QMessageBox::warning(this, tr("Warning"), tr("Already have a parent directory, subdirs will not append."));
     }
 }
 
@@ -135,52 +139,37 @@ void SMainWindow::timerEvent(QTimerEvent *event)
 	}
 }
 
-QStringList SMainWindow::generateFileList()
-{
-    Q_D(SMainWindow);
-    QStringList sources;
-
-    for(int i = 0; i < listWidgetDirs->count(); i++)
-    {
-        if(d->_generateStop)
-            break;
-
-        QString dp = listWidgetDirs->item(i)->text();
-        QDir dir(dp);
-
-        entryFileList(dir, sources, d->_types);
-    }
-    return sources;
-}
-
-void SMainWindow::entryFileList(const QDir& dir, QStringList& s, const QStringList& filters /*= QStringList()*/)
-{
-    Q_D(SMainWindow);
-    if(d->_generateStop)
-        return;
-
-    QFileInfoList infos = dir.entryInfoList(QDir::Dirs|QDir::Files | QDir::NoDotAndDotDot);
-    qDebug() << infos;
-    for(int i = 0; i < infos.count(); i++)
-    {
-        if(infos[i].isDir())
-            entryFileList(QDir(infos[i].absoluteFilePath()), s, filters);
-        else if(infos[i].isFile() && filters.contains(infos[i].suffix().insert(0, '.')))
-        {
-            s.append(infos[i].absoluteFilePath());
-        }
-    }
-}
-
 void SMainWindow::generateExtensionList(const QStringList& list)
 {
     foreach(auto l, list)
     {
         QListWidgetItem* item = new QListWidgetItem(l);
         item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
-        item->setIcon(QIcon(QString(":/resources/%1++.png").arg(QFileInfo(l).suffix().contains("h") ? "h" : "c")));
+        item->setIcon(QIcon(QString(":/resources/%1.png").arg(QFileInfo(l).suffix())));
         listWidgetFiles->addItem(item);
+        listWidgetFiles->scrollToItem(item);
     }
+}
+
+void SMainWindow::generateFilesList()
+{
+    listWidgetFiles->clear();
+
+    tbtnStop->setEnabled(true);
+    tbtnStart->setEnabled(false);
+
+    QStringList dirs;
+    for(int i = 0; i < listWidgetDirs->count(); i++)
+        dirs.append(listWidgetDirs->item(i)->text());
+
+    SEntryListThread* thread = new SEntryListThread(dirs, comboBox->currentText().split(";"), this);
+    connect(thread, &QThread::finished, thread, &QThread::deleteLater);
+    connect(tbtnStop, &QToolButton::clicked, [&](){ thread->terminate(); thread->wait(); delete thread; });
+    connect(thread, &SEntryListThread::entryList, this, &SMainWindow::generateExtensionList, Qt::QueuedConnection);
+    thread->start();
+
+    tbtnStop->setEnabled(false);
+    tbtnStart->setEnabled(true);
 }
 
 

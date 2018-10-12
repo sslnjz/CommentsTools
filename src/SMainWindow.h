@@ -23,13 +23,11 @@ protected:
 
 private Q_SLOTS:
 	void addFilterPath();
-    QStringList generateFileList();
+    void generateFilesList();
+
 private:
     void addItem2SourceList(const QString& s);
     void removeFromSourceList(int index);
-
-    void entryFileList(const QDir& dir, QStringList& list, const QStringList& filters = QStringList());
-
     void generateExtensionList(const QStringList& list);
 
 private:

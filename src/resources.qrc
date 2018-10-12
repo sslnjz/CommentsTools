@@ -11,7 +11,7 @@
         <file>resources/557760.png</file>
         <file>resources/1201081.png</file>
         <file>resources/558058.png</file>
-        <file>resources/c++.png</file>
-        <file>resources/h++.png</file>
+        <file>resources/h.png</file>
+        <file>resources/cpp.png</file>
     </qresource>
 </RCC>

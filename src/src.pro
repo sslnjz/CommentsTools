@@ -9,7 +9,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 QT          += core gui
 TEMPLATE    = app
 
-CONFIG      += c++11
+CONFIG      += c++14
 
 DESTDIR     = ../bin
 MOC_DIR     = ../moc
@@ -41,11 +41,13 @@ CONFIG(debug, debug|release){
 SOURCES     += \
             main.cpp \
     SMainWindow.cpp \
-    STypeDialog.cpp
+    STypeDialog.cpp \
+    SEntryListThread.cpp
 
 HEADERS     += \
     SMainWindow.h \
-    STypeDialog.h
+    STypeDialog.h \
+    SEntryListThread.h
 
 FORMS       += \
     MainWindow.ui \
