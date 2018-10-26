@@ -174,7 +174,14 @@
            </layout>
           </item>
           <item>
-           <widget class="QListWidget" name="listWidgetDirs"/>
+           <widget class="QListWidget" name="listWidgetDirs">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+           </widget>
           </item>
          </layout>
         </item>
@@ -416,7 +423,14 @@ QToolButton:disabled{
       </layout>
      </item>
      <item row="0" column="0">
-      <widget class="QListWidget" name="listWidgetFiles"/>
+      <widget class="QListWidget" name="listWidgetFiles">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+      </widget>
      </item>
     </layout>
    </widget>

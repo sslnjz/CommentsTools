@@ -4,11 +4,14 @@
 #include <qglobal.h>
 #include <QMainWindow>
 #include <QDir>
+#include <QVector>
 #include "ui_MainWindow.h"
 
 namespace Ui {
 class SMainWindow;
 }
+
+
 
 class SMainWindowPrivate;
 class SMainWindow : public QMainWindow, public Ui::MainWindow
@@ -28,7 +31,7 @@ private Q_SLOTS:
 private:
     void addItem2SourceList(const QString& s);
     void removeFromSourceList(int index);
-    void generateExtensionList(const QStringList& list);
+    void generateExtensionList(const QVector<QString>& list);
 
 private:
     QScopedPointer<SMainWindowPrivate> d_ptr;

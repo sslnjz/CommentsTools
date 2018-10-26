@@ -1,7 +1,7 @@
 #include "SMainWindow.h"
 #include "ui_MainWindow.h"
 #include "STypeDialog.h"
-#include "SEntryListThread.h"
+#include "SEntryList.h"
 
 #include <QDir>
 #include <QFileDialog>
@@ -32,7 +32,7 @@ SMainWindow::SMainWindow(QWidget *parent) :
     QMainWindow(parent)
 	, d_ptr(new SMainWindowPrivate(this))
 {
-	Q_D(SMainWindow);
+    Q_D(SMainWindow);
 
     setupUi(this);
 
@@ -139,15 +139,14 @@ void SMainWindow::timerEvent(QTimerEvent *event)
 	}
 }
 
-void SMainWindow::generateExtensionList(const QStringList& list)
+void SMainWindow::generateExtensionList(const QVector<QString>& list)
 {
     foreach(auto l, list)
     {
         QListWidgetItem* item = new QListWidgetItem(l);
         item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
-        item->setIcon(QIcon(QString(":/resources/%1.png").arg(QFileInfo(l).suffix())));
+        //item->setIcon(QIcon(QString(":/resources/%1.png").arg(l.mid(l.lastIndexOf(".")))));
         listWidgetFiles->addItem(item);
-        listWidgetFiles->scrollToItem(item);
     }
 }
 
@@ -162,11 +161,19 @@ void SMainWindow::generateFilesList()
     for(int i = 0; i < listWidgetDirs->count(); i++)
         dirs.append(listWidgetDirs->item(i)->text());
 
-    SEntryListThread* thread = new SEntryListThread(dirs, comboBox->currentText().split(";"), this);
+    QStringList filters = comboBox->currentText().split(";");
+
+    SEntryList* task = new SEntryList(dirs, filters);
+    connect(task, &SEntryList::entryFileList, this, &SMainWindow::generateExtensionList);
+
+    QThread* thread = new QThread;
+    connect(thread, &QThread::started, task, &SEntryList::run);
     connect(thread, &QThread::finished, thread, &QThread::deleteLater);
-    connect(tbtnStop, &QToolButton::clicked, [&](){ thread->terminate(); thread->wait(); delete thread; });
-    connect(thread, &SEntryListThread::entryList, this, &SMainWindow::generateExtensionList, Qt::QueuedConnection);
+    connect(thread, &QThread::finished, task, &SEntryList::deleteLater);
+    task->moveToThread(thread);
+
     thread->start();
+
 
     tbtnStop->setEnabled(false);
     tbtnStart->setEnabled(true);

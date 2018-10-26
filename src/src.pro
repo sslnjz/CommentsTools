@@ -9,13 +9,15 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 QT          += core gui
 TEMPLATE    = app
 
-CONFIG      += c++14
+CONFIG      += c++11
 
 DESTDIR     = ../bin
 MOC_DIR     = ../moc
 RCC_DIR     = ../rcc
 OBJECTS_DIR = ../obj
 INCLUDEPATH = ../include
+INCLUDEPATH += /usr/local/include
+DEPENDPATH  += /usr/local/include
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which has been marked as deprecated (the exact warnings
@@ -33,21 +35,27 @@ DEFINES     += QT_DEPRECATED_WARNINGS
 CONFIG(debug, debug|release){
     TARGET  = CommentsToolsD
     LIBS    += -L$$PWD/lib
+    macx: QMAKE_CFLAGS = -std=c++11 -stdlib=libc++
+    macx: QMAKE_CXXFLAGS = -std=c++11 -stdlib=libc++
+    macx: LIBS += -L/usr/local/lib/ -lboost_system -lboost_filesystem
 }else{
     TARGET  = CommentsTools
     LIBS    += -L$$PWD/lib
+    macx: QMAKE_CFLAGS = -std=c++11 -stdlib=libc++
+    macx: QMAKE_CXXFLAGS = -std=c++11 -stdlib=libc++
+    macx: LIBS += -L/usr/local/lib/ -lboost_system  -lboost_filesystem
 }
 
 SOURCES     += \
             main.cpp \
     SMainWindow.cpp \
     STypeDialog.cpp \
-    SEntryListThread.cpp
+    SEntryList.cpp
 
 HEADERS     += \
     SMainWindow.h \
     STypeDialog.h \
-    SEntryListThread.h
+    SEntryList.h
 
 FORMS       += \
     MainWindow.ui \
